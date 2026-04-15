@@ -32,15 +32,20 @@ The final candidate ranking is a composite score calculated using four distinct 
 
 ## Project Workflow or Architecture
 
-The workflow is simple but highly effective. 
+The workflow is simple but highly effective, following this step-by-step pipeline:
 
-1. You upload your ZIP archive of resumes and type out your job description into the web interface.
-2. The frontend sends this data to the FastAPI backend.
-3. The backend extracts the ZIP file in a secure temporary directory. Next, it reads the text from every PDF and DOCX file using python libraries like pdfplumber.
-4. An open source language model transforms both the job description and the resume text into mathematical vectors. 
-5. It then measures the cosine similarity between these vectors. A higher textual similarity means the resume is a much better match for the role.
-6. The backend calculates the final composite score based on semantics, skills, projects, and exact experience.
-7. The backend packages these scores and rankings, sending them back to the frontend which renders the dashboard complete with live thumbnails and animated progress rings.
+```mermaid
+flowchart TD
+    A[User Uploads ZIP & Job Description] -->|Via Web Interface| B(Frontend Application)
+    B -->|Sends Data| C{FastAPI Backend}
+    C -->|Extracts Files| D[Temporary Secure Directory]
+    D -->|Parses PDF/DOCX| E[Text Extraction via pdfplumber/docx]
+    E -->|Encodes Text| F[Sentence Transformers Models]
+    F -->|Outputs Math Vectors| G((Cosine Similarity Calculation))
+    G -->|Applies Weights| H[Composite Scoring: Semantics, Skills, Projects, Experience]
+    H -->|Packages Results| I(JSON Response to Frontend)
+    I -->|Renders UI| J[Dashboard with Live Thumbnails & Rankings]
+```
 
 ## Project Structure and Modules
 
