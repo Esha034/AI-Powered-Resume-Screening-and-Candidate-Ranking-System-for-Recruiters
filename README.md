@@ -1,5 +1,7 @@
 # Resulyze: AI Powered Resume Analyzer
 
+**Live Demo:** [https://smart-ai-resume-analyser.netlify.app](https://smart-ai-resume-analyser.netlify.app)
+
 Welcome to Resulyze! This project is an intelligent web application designed to make the hiring and screening process incredibly fast and efficient. If you have a stack of resumes in a ZIP file and a specific job description, Resulyze will review them all, score them using advanced AI, and give you a beautiful dashboard showing exactly who your top candidates are.
 
 ## What is this project?
@@ -20,6 +22,7 @@ Resulyze takes the manual headache out of screening resumes. Instead of reading 
 * **Backend:** Python 3, FastAPI (REST API), Uvicorn.
 * **Machine Learning & AI:** `sentence-transformers` (`all-MiniLM-L6-v2`), PyTorch.
 * **Document Parsing:** `pdfplumber` (for PDFs), `python-docx` (for Word documents).
+* **Tools & Deployment:** Hugging Face Spaces (Backend), Netlify (Frontend).
 
 ## Scoring Mechanism
 
@@ -30,21 +33,26 @@ The final candidate ranking is a composite score calculated using four distinct 
 3. **Project & Action Orientation (20% Weight):** Scans for action verbs (e.g. "developed", "built", "implemented") to gauge how hands-on the candidate's experience is.
 4. **Experience Level (10% Weight):** Extracts quantitative mentions of years of experience using regular expressions to approximate seniority.
 
+**Final Scoring Formula:**
+```python
+final_score = (0.4 * semantic_score) + (0.3 * skills_score) + (0.2 * project_score) + (0.1 * experience_score)
+```
+
 ## Project Workflow or Architecture
 
 The workflow is simple but highly effective, following this step-by-step pipeline:
 
 ```mermaid
 flowchart TD
-    A[User Uploads ZIP & Job Description] -->|Via Web Interface| B(Frontend Application)
-    B -->|Sends Data| C{FastAPI Backend}
+    A[User Uploads ZIP & Job Description] -->|via Web Interface| B(Frontend Application Hosted on Netlify)
+    B -->|Sends Data via API| C{FastAPI Backend Hosted on Hugging Face}
     C -->|Extracts Files| D[Temporary Secure Directory]
     D -->|Parses PDF/DOCX| E[Text Extraction via pdfplumber/docx]
     E -->|Encodes Text| F[Sentence Transformers Models]
     F -->|Outputs Math Vectors| G((Cosine Similarity Calculation))
     G -->|Applies Weights| H[Composite Scoring: Semantics, Skills, Projects, Experience]
     H -->|Packages Results| I(JSON Response to Frontend)
-    I -->|Renders UI| J[Dashboard with Live Thumbnails & Rankings]
+    I -->|Client Browser Renders UI| J[Dashboard with Live Thumbnails & Rankings]
 ```
 
 ## Project Structure and Modules
