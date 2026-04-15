@@ -11,7 +11,7 @@ Resulyze takes the manual headache out of screening resumes. Instead of reading 
 ## Key Features
 
 * **Automated Bulk Parsing:** Upload a single ZIP file containing multiple PDF or DOCX resumes. The backend handles extracting and processing them all at once.
-* **Intelligent AI Matching:** Uses powerful sentence transformers to calculate how closely a candidate's experience, skills, and projects align with the actual job responsibilities.
+* **Intelligent AI Matching:** Uses powerful **sentence transformers** to calculate how closely a candidate's experience, skills, and projects align with the actual job responsibilities.
 * **Detailed Score Breakdown:** It does not just give a random overall number. You get specific sub-scores for Semantic Match, Skills, Projects, and Experience.
 * **Live Document Preview:** The UI displays a crisp, scaled down visual glimpse of the actual PDF directly on the candidate card. No need to download files just to peek at them.
 * **Premium Interface:** A modern, soft pastel dashboard that feels like a refined, enterprise ready product.
