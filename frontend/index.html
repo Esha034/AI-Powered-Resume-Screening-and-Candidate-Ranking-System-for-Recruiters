@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResumeAI Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- background decorations looking like raindrops -->
+        <div class="bg-shape bg-shape-1"></div>
+        <div class="bg-shape bg-shape-2"></div>
+        <div class="bg-shape bg-shape-3"></div>
+
+        <nav class="topbar">
+            <div class="logo">
+                <span class="logo-black">RESU</span><span class="logo-blue">LYZE</span>
+            </div>
+            <button class="nav-btn">Upload Resume</button>
+        </nav>
+
+        <main class="main-content">
+            <div class="hero">
+                <h1 class="hero-title">
+                    <span class="text-gradient">Smart</span> <strong>feedback</strong><br>
+                    <span class="text-gradient">for your</span> <strong>dream job</strong>
+                </h1>
+                <p class="hero-subtitle">Drop your resume for an ATS score and improvement tips.</p>
+            </div>
+
+            <section class="form-section" id="input-section">
+                <!-- Visually matches the screenshot layout -->
+                <div class="form-group">
+                    <label class="form-label" for="jd-input">Job Description</label>
+                    <textarea id="jd-input" class="form-control" rows="4" placeholder="Write a clear & concise job description with responsibilities & expectations..."></textarea>
+                </div>
+
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label class="form-label">Upload Resume</label>
+                    <div class="dropzone" id="dropzone">
+                        <input type="file" id="file-input" accept=".zip" hidden />
+                        <div class="dropzone-content" id="dropzone-content">
+                            <div class="upload-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="12" y1="18" x2="12" y2="12"></line>
+                                    <line x1="9" y1="15" x2="12" y2="12"></line>
+                                    <line x1="15" y1="15" x2="12" y2="12"></line>
+                                </svg>
+                            </div>
+                            <p class="dropzone-text"><strong>Click to upload</strong> or drag and drop</p>
+                            <p class="dropzone-subtext">ZIP containing PDF/DOCX (max. 10MB)</p>
+                        </div>
+                        <div class="dropzone-selected" id="file-selected" style="display:none;">
+                            <div class="file-info">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c7af0" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                <span id="file-name" class="file-name"></span>
+                            </div>
+                            <button class="remove-btn" id="remove-file">✕</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="submit-btn" id="analyze-btn" onclick="analyzeResumes()">
+                    Save & Analyze Resume
+                </button>
+            </section>
+
+            <!-- Status Sections Container -->
+            <div class="status-container">
+                <!-- Loader -->
+                <section id="loader" class="loader-section" style="display:none;">
+                    <div class="spinner"></div>
+                    <p style="color: #64748b; font-weight: 500;">Analyzing resumes...</p>
+                </section>
+
+                <!-- Error -->
+                <section id="error-section" class="error-card" style="display:none;">
+                    <p id="error-text"></p>
+                    <button class="retry-btn" onclick="hideError()">Try Again</button>
+                </section>
+
+                <!-- Results -->
+                <section id="results-section" style="display:none; margin-top: 5rem;">
+                    <div class="results-header-new" style="text-align: center; margin-bottom: 3.5rem;">
+                        <h2 class="hero-title" style="font-size: 3rem;">
+                            <span class="text-gradient">Track Your</span> <strong>Applications</strong><br>
+                            <span class="text-gradient">&</span> <strong>Resume Ratings</strong>
+                        </h2>
+                        <p class="hero-subtitle">Review your submissions and check AI-powered feedback.</p>
+                        <span id="results-count" style="display:none;"></span>
+                    </div>
+                    <div id="results-grid" class="results-grid-new"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
