@@ -4,5 +4,6 @@ __pycache__/
 .env
 .idea/
 .vscode/
-backend/temp_resumes/
+backend/temp_resumes/*
+!backend/temp_resumes/.gitkeep
 backend/.pytest_cache/

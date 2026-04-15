@@ -14,7 +14,23 @@ Resulyze takes the manual headache out of screening resumes. Instead of reading 
 * **Live Document Preview:** The UI displays a crisp, scaled down visual glimpse of the actual PDF directly on the candidate card. No need to download files just to peek at them.
 * **Premium Interface:** A modern, soft pastel dashboard that feels like a refined, enterprise ready product.
 
-## How It Works Under the Hood
+## Tech Stack
+
+* **Frontend:** HTML5, Vanilla CSS (Glassmorphism design), JavaScript.
+* **Backend:** Python 3, FastAPI (REST API), Uvicorn.
+* **Machine Learning & AI:** `sentence-transformers` (`all-MiniLM-L6-v2`), PyTorch.
+* **Document Parsing:** `pdfplumber` (for PDFs), `python-docx` (for Word documents).
+
+## Scoring Mechanism
+
+The final candidate ranking is a composite score calculated using four distinct weighted metrics:
+
+1. **Semantic Match (40% Weight):** Uses advanced natural language processing (`sentence-transformers`) to convert both the job description and the resume into mathematical vectors, then calculates the cosine similarity. This measures the true context and relevance of the resume.
+2. **Skills Match (30% Weight):** Calculates the exact keyword overlap percentage between the job description and the resume.
+3. **Project & Action Orientation (20% Weight):** Scans for action verbs (e.g. "developed", "built", "implemented") to gauge how hands-on the candidate's experience is.
+4. **Experience Level (10% Weight):** Extracts quantitative mentions of years of experience using regular expressions to approximate seniority.
+
+## Project Workflow or Architecture
 
 The workflow is simple but highly effective. 
 
@@ -23,7 +39,8 @@ The workflow is simple but highly effective.
 3. The backend extracts the ZIP file in a secure temporary directory. Next, it reads the text from every PDF and DOCX file using python libraries like pdfplumber.
 4. An open source language model transforms both the job description and the resume text into mathematical vectors. 
 5. It then measures the cosine similarity between these vectors. A higher textual similarity means the resume is a much better match for the role.
-6. The backend packages these scores and rankings, sending them back to the frontend which renders the dashboard complete with live thumbnails and animated progress rings.
+6. The backend calculates the final composite score based on semantics, skills, projects, and exact experience.
+7. The backend packages these scores and rankings, sending them back to the frontend which renders the dashboard complete with live thumbnails and animated progress rings.
 
 ## Project Structure and Modules
 
